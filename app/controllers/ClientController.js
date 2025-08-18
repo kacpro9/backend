@@ -1,4 +1,4 @@
-const ClientModel = require("../models/'ClientModel.js");
+const ClientModel = require("../models/ClientModel.js");
 
 module.exports = {
   create: async (req, res, next) => {

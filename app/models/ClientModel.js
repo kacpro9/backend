@@ -10,11 +10,10 @@ const clientSchema = new mongoose.Schema({
     required: true,
   },
   adress: {
-    street: String,
+    street: { type: String, required: true },
     suite: String,
-    city: String,
-    zipcode: String,
-    required: true,
+    city: { type: String, required: true },
+    zipcode: { type: String, required: true },
   },
   nip: {
     type: String,
@@ -23,4 +22,4 @@ const clientSchema = new mongoose.Schema({
   },
 });
 
-module.exports = moongose.model("ClientModel", clientSchema);
+module.exports = mongoose.model("ClientModel", clientSchema);
