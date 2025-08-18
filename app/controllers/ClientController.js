@@ -88,4 +88,47 @@ module.exports = {
       });
     }
   },
+
+  getOne: async (req, res, next) => {
+    const id = req.params.id;
+    try {
+      const client = await ClientModel.findById(id);
+
+      if (!client) {
+        return res.status(404).json({
+          message: "Client not found",
+        });
+      }
+
+      res.status(200).json({
+        client: client,
+      });
+    } catch (error) {
+      res.status(500).json({
+        message: "Error while fetching client",
+        error: error.message,
+      });
+    }
+  },
+
+  getAll: async (req, res, next) => {
+    try {
+      const clients = await ClientModel.find();
+
+      if (!clients || clients.length === 0) {
+        return res.status(404).json({
+          message: "No clients found",
+        });
+      }
+
+      res.status(200).json({
+        clients: clients,
+      });
+    } catch (error) {
+      res.status(500).json({
+        message: "Error while fetching clients",
+        error: error.message,
+      });
+    }
+  },
 };
