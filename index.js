@@ -14,7 +14,11 @@ mongoose
   });
 
 const app = express();
+app.use(express.json());
 app.use(cors());
+
+const clientsRoutes = require("./app/routes/ClientsRoutes")();
+app.use("/clients", clientsRoutes);
 
 app.listen(config.app.port, () => {
   console.log(`Express server is up on port ${config.app.port}`);
