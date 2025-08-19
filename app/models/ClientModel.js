@@ -14,7 +14,7 @@ const clientSchema = new mongoose.Schema({
   nip: {
     type: String,
     required: true,
-    match: [/^\d{10}$/, "Numer NIP musi posiadać dokładnie 10 cyfr"],
+    match: [/^\d{10}$/, "NIP must be a 10-digit number"],
   },
 });
 

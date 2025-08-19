@@ -5,11 +5,11 @@ module.exports = {
     try {
       const client = new ClientModel({
         name: req.body.name,
-        adress: {
-          street: req.body.adress?.street,
-          suite: req.body.adress?.suite,
-          city: req.body.adress?.city,
-          zipcode: req.body.adress?.zipcode,
+        address: {
+          street: req.body.address?.street,
+          suite: req.body.address?.suite,
+          city: req.body.address?.city,
+          zipcode: req.body.address?.zipcode,
         },
         nip: req.body.nip,
       });
@@ -17,7 +17,7 @@ module.exports = {
       const savedClient = await client.save();
 
       res.status(201).json({
-        message: "Client created sucessfully",
+        message: "Client created successfully",
         client: savedClient,
       });
     } catch (error) {
@@ -60,11 +60,11 @@ module.exports = {
         id,
         {
           name: req.body.name,
-          adress: {
-            street: req.body.adress?.street,
-            suite: req.body.adress?.suite,
-            city: req.body.adress?.city,
-            zipcode: req.body.adress?.zipcode,
+          address: {
+            street: req.body.address?.street,
+            suite: req.body.address?.suite,
+            city: req.body.address?.city,
+            zipcode: req.body.address?.zipcode,
           },
           nip: req.body.nip,
         },
@@ -76,7 +76,7 @@ module.exports = {
       }
 
       res.status(200).json({
-        message: "Client edited sucessfully!",
+        message: "Client edited successfully!",
         client: editClient,
       });
     } catch (error) {
