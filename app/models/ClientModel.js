@@ -5,11 +5,7 @@ const clientSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  surname: {
-    type: String,
-    required: true,
-  },
-  adress: {
+  address: {
     street: { type: String, required: true },
     suite: String,
     city: { type: String, required: true },

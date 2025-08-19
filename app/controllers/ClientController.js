@@ -1,11 +1,10 @@
 const ClientModel = require("../models/ClientModel.js");
 
 module.exports = {
-  create: async (req, res, next) => {
+  create: async (req, res) => {
     try {
       const client = new ClientModel({
         name: req.body.name,
-        surname: req.body.surname,
         adress: {
           street: req.body.adress?.street,
           suite: req.body.adress?.suite,
@@ -30,7 +29,7 @@ module.exports = {
     }
   },
 
-  delete: async (req, res, next) => {
+  delete: async (req, res) => {
     const id = req.params.id;
     try {
       const client = await ClientModel.findByIdAndDelete(id);
@@ -53,7 +52,7 @@ module.exports = {
     }
   },
 
-  edit: async (req, res, next) => {
+  edit: async (req, res) => {
     try {
       const id = req.params.id;
 
@@ -61,7 +60,6 @@ module.exports = {
         id,
         {
           name: req.body.name,
-          surname: req.body.surname,
           adress: {
             street: req.body.adress?.street,
             suite: req.body.adress?.suite,
@@ -89,7 +87,7 @@ module.exports = {
     }
   },
 
-  getOne: async (req, res, next) => {
+  getOne: async (req, res) => {
     const id = req.params.id;
     try {
       const client = await ClientModel.findById(id);
@@ -111,15 +109,9 @@ module.exports = {
     }
   },
 
-  getAll: async (req, res, next) => {
+  getAll: async (_req, res) => {
     try {
       const clients = await ClientModel.find();
-
-      if (!clients || clients.length === 0) {
-        return res.status(404).json({
-          message: "No clients found",
-        });
-      }
 
       res.status(200).json({
         clients: clients,
