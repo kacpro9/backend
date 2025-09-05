@@ -21,11 +21,11 @@ module.exports = {
         client: savedClient,
       });
     } catch (error) {
-      res.status(500),
-        json({
-          message: "Error while creating client",
-          error: error.message,
-        });
+      console.error("Error creating client:", error);
+      res.status(500).json({
+        message: "Error while creating client",
+        error: error.message,
+      });
     }
   },
 

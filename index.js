@@ -20,6 +20,9 @@ app.use(cors());
 const clientsRoutes = require("./app/routes/ClientsRoutes")();
 app.use("/clients", clientsRoutes);
 
+const actionRoutes = require("./app/routes/ActionRoutes")();
+app.use("/actions", actionRoutes);
+
 app.listen(config.app.port, () => {
   console.log(`Express server is up on port ${config.app.port}`);
 });
