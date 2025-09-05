@@ -12,5 +12,5 @@ module.exports = () => {
   //EDIT
   router.put("/:id", ActionController.edit);
 
-    return router;
+  return router;
 };
