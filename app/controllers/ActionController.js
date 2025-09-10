@@ -1,4 +1,5 @@
 const ActionModel = require("../models/ActionModel");
+const ClientModel = require("../models/ClientModel");
 
 module.exports = {
   create: async (req, res) => {
@@ -12,9 +13,18 @@ module.exports = {
 
       const savedAction = await action.save();
 
+      const updateCustomer = await ClientModel.findByIdAndUpdate(
+        req.body.clientId,
+        {
+          $push: { actions: savedAction._id },
+        },
+        { new: true }
+      );
+
       res.status(201).json({
         message: "Action created successfully",
         action: savedAction,
+        updateCustomer: updateCustomer,
       });
     } catch (error) {
       console.error("Error creating action:", error);

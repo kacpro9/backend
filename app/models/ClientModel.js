@@ -16,6 +16,13 @@ const clientSchema = new mongoose.Schema({
     required: true,
     match: [/^\d{10}$/, "NIP must be a 10-digit number"],
   },
+
+  actions: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "ActionModel",
+    },
+  ],
 });
 
 module.exports = mongoose.model("ClientModel", clientSchema);
