@@ -3,12 +3,13 @@ const ClientModel = require("../models/ClientModel");
 
 module.exports = {
   create: async (req, res) => {
+    const clientId = req.params.id;
     try {
       const action = new ActionModel({
         name: req.body.name,
         description: req.body.description,
         date: req.body.date,
-        clientId: req.body.clientId,
+        clientId: clientId
       });
 
       const savedAction = await action.save();

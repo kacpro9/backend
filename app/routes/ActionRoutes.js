@@ -4,7 +4,7 @@ const ActionController = require("../controllers/ActionController");
 
 module.exports = () => {
   // CREATE
-  router.post("/", ActionController.create);
+  router.post("/:id", ActionController.create);
 
   //DELETE
   router.delete("/:id", ActionController.delete);
