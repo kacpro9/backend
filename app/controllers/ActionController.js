@@ -3,7 +3,7 @@ const ClientModel = require("../models/ClientModel");
 
 module.exports = {
   create: async (req, res) => {
-    const clientId = req.params.id;
+    const clientId = req.params.clientId;
     try {
       const action = new ActionModel({
         name: req.body.name,
@@ -15,7 +15,7 @@ module.exports = {
       const savedAction = await action.save();
 
       const updateCustomer = await ClientModel.findByIdAndUpdate(
-        req.body.clientId,
+        clientId,
         {
           $push: { actions: savedAction._id },
         },
