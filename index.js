@@ -23,6 +23,9 @@ app.use("/clients", clientsRoutes);
 const actionRoutes = require("./app/routes/ActionRoutes")();
 app.use("/actions", actionRoutes);
 
+const authRoutes = require("./app/routes/AuthRoutes");
+app.use("/auth", authRoutes);
+
 app.listen(config.app.port, () => {
   console.log(`Express server is up on port ${config.app.port}`);
 });
