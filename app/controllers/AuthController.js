@@ -28,7 +28,8 @@ module.exports = {
       if (!user) {
         return res.status(401).json({ message: "Invalid credentials" });
       }
-      const isMatch = await user.comparePassword(password);
+      const isMatch = await user.comparePassword(password, user.password);
+      console.log(isMatch);
       if (!isMatch) {
         return res.status(401).json({ message: "Invalid credentials" });
       }
