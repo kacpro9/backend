@@ -111,10 +111,25 @@ module.exports = {
 
   getAll: async (_req, res) => {
     try {
-      const clients = await ClientModel.find();
+      const page = parseInt(_req.query.page) || 1;
+      const limit = parseInt(_req.query.limit) || 10;
+      const skip = (page - 1) * limit;
+
+      const [clients, total] = await Promise.all([
+        ClientModel.find().skip(skip).limit(limit),
+        ClientModel.countDocuments(),
+      ]);
 
       res.status(200).json({
-        clients: clients,
+        clients,
+        pagination: {
+          total,
+          page,
+          limit,
+          pages: Math.ceil(total / limit),
+          hasNextPage: page * limit < total,
+          hasPrevPage: page > 1,
+        }
       });
     } catch (error) {
       res.status(500).json({
