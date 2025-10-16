@@ -109,15 +109,27 @@ module.exports = {
     }
   },
 
-  getAll: async (_req, res) => {
+  getAll: async (req, res) => {
     try {
-      const page = parseInt(_req.query.page) || 1;
-      const limit = parseInt(_req.query.limit) || 10;
+      const page = parseInt(req.query.page) || 1;
+      const limit = parseInt(req.query.limit) || 10;
       const skip = (page - 1) * limit;
 
+      const search = (req.query.search || "").trim();
+
+      let query = {};
+      if (search) {
+        query = {
+          $or: [
+            { name: { $regex: new RegExp(search, "i") } },
+            { nip: { $regex: new RegExp(search, "i") } },
+          ],
+        };
+      }
+
       const [clients, total] = await Promise.all([
-        ClientModel.find().skip(skip).limit(limit),
-        ClientModel.countDocuments(),
+        ClientModel.find(query).skip(skip).limit(limit),
+        ClientModel.countDocuments(query),
       ]);
 
       res.status(200).json({
@@ -129,9 +141,10 @@ module.exports = {
           pages: Math.ceil(total / limit),
           hasNextPage: page * limit < total,
           hasPrevPage: page > 1,
-        }
+        },
       });
     } catch (error) {
+      console.error("Error fetching clients:", error);
       res.status(500).json({
         message: "Error while fetching clients",
         error: error.message,
